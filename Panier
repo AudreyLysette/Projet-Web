@@ -1,0 +1,36 @@
+<?PHP
+
+class panierC {
+
+	
+function ajouterpanier($panier){
+		$sql="insert into panier (idClient,codePromo,total,totalReduction) values (:idClient,:codePromo,:total,:totalReduction)";
+		$db = config::getConnexion();
+		try{
+        $req=$db->prepare($sql);
+        $idClient=$panier->getidClient();
+        $total=$panier->gettotal(); 
+        $codePromo=$panier->getcodePromo(); 
+        $totalReduction=$panier->gettotalReduction(); 
+		$req->bindValue(':idClient',$idClient);
+		$req->bindValue(':total',$total);
+		$req->bindValue(':codePromo',$codePromo);
+		$req->bindValue(':totalReduction',$totalReduction);
+		
+            $req->execute();
+           
+        }
+        catch (Exception $e){
+            echo 'Erreur: '.$e->getMessage();
+       }
+		
+	}
+	
+	function afficherpanier(){
+		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
+		$sql="SElECT * From panier";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
