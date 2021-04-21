@@ -1,0 +1,33 @@
+<!doctype html>
+<?php 
+session_start();
+if (!isset($_SESSION['panier'])) {
+    session_name('panier');
+    $_SESSION['panier'][]= [];
+    
+}
+else
+$lignes=$_SESSION['panier'];
+
+if (isset($_POST['plus'])) {
+  //plus c'est le nom du bouton pour augmenter la qte et a ce niveau c'est un  mini formulaire et cest post et on utliser la methode post 
+  $_SESSION['panier'][$_GET['id']]['quantite']=$_POST['qte'];
+  $lignes=$_SESSION['panier'];
+}
+$nombre=0;
+$total=0;
+?>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>eCommerce HTML-5 Template </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <!-- CSS here -->
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="assets/css/owl.caro
