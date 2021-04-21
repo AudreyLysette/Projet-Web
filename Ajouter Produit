@@ -1,0 +1,27 @@
+<!doctype html>
+<?php 
+session_start();
+include_once "config.php";
+include_once "core/produitC.php";
+$produitC=new produitC();
+                            $listeproduit=$produitC->recupererproduit($_GET['id']);
+                            $listeproduit1=$produitC->recupererproduit($_GET['id']);
+if (!isset($_SESSION['panier'])) {
+    session_name('panier');
+    $_SESSION['panier'][]= [];
+}
+
+if (!isset($_SESSION['user'])) {
+    session_name('user');
+    $_SESSION['user']= [ 'nom'=> "Audrey", 'id'=> "1" ];
+}
+foreach ($listeproduit1 as $row) {
+if (isset($_GET['add'])&&isset($_SESSION['panier'][$row['IdProduit']])) {
+  $_SESSION['panier'][$row['IdProduit']]['quantite']++;
+  // si l'utilisateur appui sur add et qu'il ya deja le produit c'est juste la qte qui augmente
+}
+
+else if (isset($_GET['add'])) {
+  
+    $_SESSION['panier'][$row['IdProduit']]=[ 'image'=> $row['Image'], 'nom'=> $row['Nom'], 'prix'=> $row['Prix'], 'quantite'=> 1, 'id'=> $row['IdProduit'] ];
+    // s'il n'a pas de produit
